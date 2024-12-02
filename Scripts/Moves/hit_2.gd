@@ -2,7 +2,7 @@ class_name hit_2
 extends Move
 
 const COMBO_TIMING = 0.5
-const TRANSITION_TIMING = 1.6
+const TRANSITION_TIMING = 1.4
 var hit_damage = 10 # should be a function of player stats
 
 func _ready():

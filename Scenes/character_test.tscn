@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dllw6uw0boqh"]
+[gd_scene load_steps=9 format=3 uid="uid://dllw6uw0boqh"]
 
 [ext_resource type="PackedScene" uid="uid://ccj02vkvmr3vx" path="res://Scenes/player.tscn" id="1_6muoy"]
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="2_x2sap"]
+[ext_resource type="PackedScene" uid="uid://c60dwcawjirw6" path="res://Scenes/enemytest.tscn" id="3_avlap"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asta7"]
 albedo_color = Color(0.811765, 0.458824, 1, 1)
@@ -56,9 +57,7 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="enemy"]
 shape = SubResource("CapsuleShape3D_mbriy")
 
-[node name="AcceptDialog" type="AcceptDialog" parent="enemy"]
-visible = true
-dialog_hide_on_ok = false
-
 [node name="Player" parent="." instance=ExtResource("1_6muoy")]
 transform = Transform3D(0.939467, 0, 0, 0, 0.939467, 0, 0, 0, 0.939467, 0, 1.12845, 0)
+
+[node name="enemytest" parent="." instance=ExtResource("3_avlap")]

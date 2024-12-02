@@ -3,15 +3,21 @@ extends Node
 
 @onready var player = $".."
 @onready var animator = $"../Knight/AnimationPlayer"
+# TODO: abstract the animator somehow
 
 var current_move : Move 
+
+@onready var active_weapon : Weapon # = $weapon? as Sword
 
 @onready var moves = {
 	"idle" : $idle,
 	"run" : $run,
 	"hit_1" : $combat/hit_1,
 	"hit_2" : $combat/hit_2,
-	"block" : $combat/block
+	"block" : $combat/block,
+	# "staggered" : 
+	# "death" : 
+	# parried?
 }
 
 func _ready():
