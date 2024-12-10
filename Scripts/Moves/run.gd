@@ -1,8 +1,8 @@
 class_name Run
 extends Move
 
-@export var SPEED = 6.0
-@export var TURN_SPEED = 3.0
+@export var SPEED = 6.5
+@export var TURN_SPEED = 4.0
 
 @export var FRICTION = 0.5 # would need to implement momentum
 @export var REBOUND = 0.2 # ?? maybe??	
@@ -10,11 +10,8 @@ extends Move
 func _ready():
 	animation = "Running_A"
 
-func check_relevance(input : InputPackage):
-	input.actions.sort_custom(moves_priority_sort)
-	if input.actions[0] == "run":
-		return "okay"
-	return input.actions[0]
+func default_lifecycle(input : InputPackage) -> String:
+	return best_eligible_input(input)
 	
 func update(input : InputPackage, delta : float):
 	process_input_vector(input, delta)

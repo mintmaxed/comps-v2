@@ -4,9 +4,12 @@ extends Move
 func _ready():
 	animation = "Idle"
 
-func check_relevance(input : InputPackage) -> String:
-	input.actions.sort_custom(moves_priority_sort)
-	return input.actions[0]	
+func default_lifecycle(input) -> String:
+	if has_queued_move && resources.move_available(player.model.moves[queued_move]):
+		has_queued_move = false
+		return queued_move
+	
+	return best_eligible_input(input)
 	
 func on_enter_state():
 	player.velocity = Vector3.ZERO

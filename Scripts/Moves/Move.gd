@@ -9,7 +9,7 @@ extends Node
 # universal
 var player : CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-
+var resources : PlayerResources
 
 # fields to redefine
 @export var animation : String
@@ -35,7 +35,7 @@ static var moves_priority : Dictionary = {
 	"hit_1" : 4,
 	"block" : 5,
 	"sprint" : 6,
-	"stagger" : 7,
+	"staggered" : 7,
 	"death" : 8
 }
 
@@ -49,17 +49,29 @@ func update(input : InputPackage, delta : float):
 	pass
 	
 func check_relevance(input : InputPackage) -> String:
-	print_debug("error, implement check_relevance")
-	return "error, implement check_relevance"
+	if has_override_move:
+		print("check_relevance override", override_move)
+		has_override_move = false
+		return override_move
+	
+	return default_lifecycle(input)
 	
 func best_eligible_input(input : InputPackage) -> String:
 	input.actions.sort_custom(moves_priority_sort)
+	for action in input.actions:
+		if resources.move_available(player.model.moves[action]):
+			if player.model.moves[action] == self:
+				return "okay"
+			else:
+				return action
 	return "what"
 	
 func react_on_hit(hit : HitData):
 	# if (is_vulnerable()):
-		# resources.lose_health(hit.damage)
-	pass
+		#  resources.lose_health(hit.damage)
+	# if (is_interruptable()):
+		print("try_move_override", has_override_move)
+		try_move_override("staggered")
 	
 	
 func try_move_override(new_move_override : String):
@@ -68,6 +80,9 @@ func try_move_override(new_move_override : String):
 		override_move = new_move_override
 	elif (moves_priority[new_move_override] >= moves_priority[override_move]):
 		override_move = new_move_override
+		
+func default_lifecycle(input : InputPackage) -> String:
+	return "implement default lifecycle"
 		
 #func is_vulnerable() -> bool:
 	#return moves_data_repo.get_vulnerable(backend_animation, get_progress())

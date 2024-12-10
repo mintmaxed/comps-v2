@@ -23,4 +23,13 @@ func gain_health(amount : float):
 	else:
 		health = max_health
 		
+func pay_resource_cost(move : Move):
+	pass
+		
+func move_available(move : Move):
+	# powerups available
+	# sprint cooldowns
+	# not doing stamina i think
+	return true
+		
 

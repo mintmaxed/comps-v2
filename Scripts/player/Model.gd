@@ -6,6 +6,7 @@ extends Node
 
 @onready var player = $".."
 @onready var animator = $"AnimationPlayer"
+@onready var resources = $resources as PlayerResources
 
 var current_move : Move 
 var active_weapon : Weapon
@@ -35,6 +36,7 @@ func _ready():
 	current_move = moves["idle"]
 	for move in moves.values():
 		move.player = player
+		move.resources = resources
 
 func update(input : InputPackage, delta : float):
 	var relevance = current_move.check_relevance(input)
