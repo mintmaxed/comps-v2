@@ -1,8 +1,13 @@
 extends CharacterBody3D
 
+@onready var behavior = $behavior
 @onready var model = $Model as PlayerModel
 
-func _physics_process(delta):
+func _ready():
 	pass
-	# var input = ai.create_input(delta)
-	# model.update(input, delta)
+
+func _physics_process(delta):
+	var input = behavior.create_input(delta)
+	model.update(input, delta)
+	
+	input.queue_free()

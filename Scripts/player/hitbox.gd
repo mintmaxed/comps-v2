@@ -1,4 +1,5 @@
 extends Area3D
+# TODO : FIX
 
 @onready var model = $".." as PlayerModel
 
@@ -8,14 +9,15 @@ func _ready():
 	
 func on_contact(area):
 	print("hitbox senses something")
+	print("area is weapon: ",  area is Weapon)
+	print("is_attacking", area.is_attacking)
 	
 	if is_eligible_attack(area):
-		area.hitbox_ignore_list.append(self)
 		model.current_move.react_on_hit(area.get_hit_data())
 		print("eligible attack")
 
 func is_eligible_attack(area : Node3D) -> bool:
-	if (area == Weapon) && (area != model.active_weapon) && (area.hitbox_ignore_list.has(self)) && (area.is_attacking):
+	if (area is Weapon) && (area != model.active_weapon) && (area.is_attacking):
 		return true
 	
 	return false

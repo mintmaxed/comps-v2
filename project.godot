@@ -76,6 +76,14 @@ c2={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="main"
+3d_physics/layer_2="player_hitbox"
+3d_physics/layer_3="player_weapon"
+3d_physics/layer_4="enemy_hitbox"
+3d_physics/layer_5="enemy_weapon"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

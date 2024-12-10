@@ -31,6 +31,7 @@ func process_input_vector(input : InputPackage, delta : float):
 		player.velocity = face_direction.rotated(Vector3.UP, angle) * SPEED
 		player.rotate_y(angle)
 	# animator.set_speed_scale(player.velocity.length() / SPEED)
+	# TODO: logarithmic acceleration?
 	
 func on_exit_state():
 	# animator.set_speed_scale(1)

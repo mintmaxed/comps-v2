@@ -4,10 +4,8 @@ extends CharacterBody3D
 # current weapon/class
 # assign skeletons and things
 
-@onready var player = $"."
 @onready var input_gatherer = $input as InputGatherer
 @onready var model = $Model as PlayerModel
-
 
 func _ready():
 	pass

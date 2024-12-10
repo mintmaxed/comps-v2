@@ -4,6 +4,8 @@ extends Node
 @export var health : float = 100
 @export var max_health : float = 100
 
+var powerups : Dictionary # = {}
+
 # TODO
 # power-ups check
 # cooldown? for sprint/dodge

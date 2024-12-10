@@ -12,17 +12,23 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 # fields to redefine
-var animation : String
+@export var animation : String
+@export var backend_animation : String
+@export var tracking_angular_speed : float = 10
+
 var move_name : String
 var has_queued_move : bool = false
 var queued_move : String = "error: no queued move"
 
+var has_override_move : bool = false
+var override_move : String = "error: no move override"
 
 var enter_state_time : float
+var frame_length = 0.016
 
 # priority
 static var moves_priority : Dictionary = {
-	# break into different containers? does it matter?
+	# higher number = higher priority when deciding which input to use
 	"idle" : 1,
 	"run" : 2,
 	"hit_2" : 3,
@@ -46,6 +52,32 @@ func check_relevance(input : InputPackage) -> String:
 	print_debug("error, implement check_relevance")
 	return "error, implement check_relevance"
 	
+func best_eligible_input(input : InputPackage) -> String:
+	input.actions.sort_custom(moves_priority_sort)
+	return "what"
+	
+func react_on_hit(hit : HitData):
+	# if (is_vulnerable()):
+		# resources.lose_health(hit.damage)
+	pass
+	
+	
+func try_move_override(new_move_override : String):
+	if (!has_override_move):
+		has_override_move = true
+		override_move = new_move_override
+	elif (moves_priority[new_move_override] >= moves_priority[override_move]):
+		override_move = new_move_override
+		
+#func is_vulnerable() -> bool:
+	#return moves_data_repo.get_vulnerable(backend_animation, get_progress())
+#
+#func is_interruptable() -> bool:
+	#return moves_data_repo.get_interruptable(backend_animation, get_progress())
+#
+#func is_parryable() -> bool:
+	#return moves_data_repo.get_parryable(backend_animation, get_progress())
+
 func on_enter_state():
 	pass
 	
@@ -68,23 +100,9 @@ func works_less_than(time : float) -> bool:
 	if get_progress() < time: 
 		return true
 	return false
-
-
-
-
-
-var combat : PlayerCombat
-# var animator : 
-
-
-@export var tracking_angular_speed : float = 10
-
-
-var initial_position : Vector3
-var frame_length = 0.016
-
-
-var has_forced_move : bool = false
-var forced_move : String = "error: nonexistent forced move"
-
-var DURATION : float
+	
+func works_between(start : float, end : float) -> bool:
+	var progress = get_progress()
+	if (progress >= start) && (progress <= end):
+		return true
+	return false

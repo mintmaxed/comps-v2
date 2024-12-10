@@ -1,13 +1,20 @@
 class_name PlayerModel
 extends Node
 
+@export var is_enemy : bool = false
+
+
 @onready var player = $".."
-@onready var animator = $"../Knight/AnimationPlayer"
-# TODO: abstract the animator somehow
+@onready var animator = $"AnimationPlayer"
 
 var current_move : Move 
+var active_weapon : Weapon
 
-@onready var active_weapon : Weapon # = $weapon? as Sword
+@onready var weapons = {
+	# see if this works
+	"sword" = $"../Knight/Rig/Skeleton3D/1H_Sword/sword" as Sword,
+	"axe" = $"../Barbarian/Rig/Skeleton3D/1H_Axe/axe" as Axe
+}
 
 @onready var moves = {
 	"idle" : $idle,
@@ -15,12 +22,16 @@ var current_move : Move
 	"hit_1" : $combat/hit_1,
 	"hit_2" : $combat/hit_2,
 	"block" : $combat/block,
-	# "staggered" : 
-	# "death" : 
+	"staggered" : $staggered,
+	"death" : $death,
 	# parried?
 }
 
 func _ready():
+	if(is_enemy):
+		active_weapon = weapons["axe"]
+	else:
+		active_weapon = weapons["sword"]
 	current_move = moves["idle"]
 	for move in moves.values():
 		move.player = player
