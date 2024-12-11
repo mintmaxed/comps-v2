@@ -1,11 +1,6 @@
 class_name Move
 extends Node
 
-# TODO
-# thinking of having three mini containers for mvt, combat, force moves
-# this will be the basic template that all of those individual moves extend
-# the containers themselves should maybe be filtered into the actual player class?
-
 # universal
 var player : CharacterBody3D
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -50,7 +45,7 @@ func update(input : InputPackage, delta : float):
 	
 func check_relevance(input : InputPackage) -> String:
 	if has_override_move:
-		print("check_relevance override", override_move)
+		print("check_relevance override ", override_move)
 		has_override_move = false
 		return override_move
 	
@@ -64,7 +59,7 @@ func best_eligible_input(input : InputPackage) -> String:
 				return "okay"
 			else:
 				return action
-	return "what"
+	return "what happened"
 	
 func react_on_hit(hit : HitData):
 	# if (is_vulnerable()):
@@ -83,7 +78,11 @@ func try_move_override(new_move_override : String):
 		
 func default_lifecycle(input : InputPackage) -> String:
 	return "implement default lifecycle"
+	
+func update_resources(delta : float):
+	resources.update(delta)
 		
+# these will work once you actually hook up the backend animations lol
 #func is_vulnerable() -> bool:
 	#return moves_data_repo.get_vulnerable(backend_animation, get_progress())
 #

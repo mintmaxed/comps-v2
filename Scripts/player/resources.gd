@@ -10,6 +10,11 @@ var powerups : Dictionary # = {}
 # power-ups check
 # cooldown? for sprint/dodge
 # buff and debuff status
+# power up ideas:
+	# invulnerable/damage absorption
+	# unblockable
+	# speed boost
+	# long range?
 
 func lose_health(amount : float):
 	health -= amount

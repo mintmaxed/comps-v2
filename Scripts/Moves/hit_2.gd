@@ -3,7 +3,7 @@ extends Move
 
 const COMBO_TIMING = 0.5
 const TRANSITION_TIMING = 1.1
-var hit_damage = 10 # should be a function of player stats
+var hit_damage = 20 # this is entirely arbitrary. maybe change later
 
 func _ready():
 	animation = "1H_Melee_Attack_Stab"

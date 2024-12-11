@@ -2,9 +2,9 @@ class_name hit_1
 extends Move
 
 const COMBO_TIMING = 0.5
-const TRANSITION_TIMING = 0.6
-const ANIMATION_END = 0.75
-var hit_damage = 10 # should be a function of player stats
+const TRANSITION_TIMING = 0.75
+const ANIMATION_END = 1 # ?????????????
+var hit_damage = 10 
 
 func _ready():
 	animation = "1H_Melee_Attack_Slice_Diagonal"
@@ -20,9 +20,10 @@ func default_lifecycle(input : InputPackage) -> String:
 		if has_queued_move and resources.move_available(player.model.moves[queued_move]):
 			has_queued_move = false
 			return queued_move
-		elif best_eligible != "idle":
-			return best_eligible
+		return best_eligible
 	elif works_longer_than(ANIMATION_END):
+		# it doesn't seem like this bloc is ever reached, but i haven't tested *every* case
+		# and it's not doing any harm, so
 		return best_eligible
 	return "okay"
 
